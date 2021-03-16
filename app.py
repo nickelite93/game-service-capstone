@@ -51,11 +51,10 @@ def create_app(test_config=None):
     body = request.get_json()
     try:
       title = body.get('title')
-      genre = body.get('genres')
       rating = body.get('rating')
       completed = body.get('completed')
 
-      game = Game(title=title, genres=genre, rating=rating, completed=completed)
+      game = Game(title=title, rating=rating, completed=completed)
       game.insert()
       return jsonify({
         'success': True,

@@ -22,7 +22,6 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             self.new_game = {
                 'title': 'This is a test game',
                 'rating': 8,
-                'genres': ["Horror"],
                 'completed': False
             }
 
@@ -117,7 +116,7 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             self.assertTrue(data['character_id'])
 
         def test_fail_to_create_game(self):
-            bad_game = {"title":"bad title", "rating": "NaN", "genres": ["Horror"], "completed": False}
+            bad_game = {"title":"bad title", "rating": "NaN", "completed": False}
             res = self.client().post('/games/create', json=bad_game, headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ikx2WDU2Ni0tS0I3cl9PWlRJSkdJRCJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbmlja3MuZXUuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTA4NTYzNjUzNzcwNTIzNTQ4NTQ1IiwiYXVkIjpbImdhbWVzLWxpYnJhcnkiLCJodHRwczovL2ZzbmQtbmlja3MuZXUuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTYxNTgzMDQ5OCwiZXhwIjoxNjE1OTE2ODk4LCJhenAiOiJ6VHlwTXR1VVV1aEdNVlpmaEZ1ZUJPazNjUnBxR1I0eiIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6Y2hhcmFjdGVycyIsImRlbGV0ZTpnYW1lcyIsImdldDpjaGFyYWN0ZXJzIiwiZ2V0OmdhbWVzIiwicGF0Y2g6Z2FtZXMiLCJwb3N0OmNoYXJhY3RlcnMiLCJwb3N0OmdhbWVzIl19.sQynwIfuo2KPcTG5vGHjq8GwgRN-PgOEPSrevzPLI5IkXO8IXzrhrXsNioyfbm24oD8CV_CVofG4Ippc2RpttQyUz-ZKTrQrPlwQ9jeoK6HaCAeZYEKepGN9aOX0HG8S-PuubVkveenj7VvURw5yw8Vd-CV3y_SiTROWWh443aHZ4FCZGFIZasgYSSH0fZDmD1dfTbAs6vpUIijWJ-jDDoR-qiQDEDsZGV2seogZID4Uwc7Du5naozo1LMXhFCg17GSQzD6FD46iaV4xIhtFEYKDqDzD9r4IBv0hDYZR6mid-ldN1keiV2c3XTRQAxuni0aeJFscOzMzq_9T92P45w'})
             data = json.loads(res.data)
 
@@ -126,7 +125,7 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             self.assertEqual(data['message'], 'bad request')
 
         def test_no_auth_create_game(self):
-            bad_game = {"title":"bad title", "rating": "NaN", "genres": ["Horror"], "completed": False}
+            bad_game = {"title":"bad title", "rating": "NaN", "completed": False}
             res = self.client().post('/games/create', json=bad_game, headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer '})
             data = json.loads(res.data)
 

@@ -28,7 +28,6 @@ class Game(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
-    genres = db.Column(db.ARRAY(db.String))
     rating = db.Column(db.Integer)
     completed = db.Column(db.Boolean, nullable=False, default=False)
 
@@ -38,7 +37,6 @@ class Game(db.Model):
             "id": self.id,
             "title": self.title,
             "completed": self.completed,
-            "genres": self.genres,
             "rating": self.rating
         }
     
