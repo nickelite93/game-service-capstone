@@ -1,3 +1,6 @@
+**Heroku URL**
+https://game-service-capstone.herokuapp.com/
+
 **Motivation for project**
 
 This API provides a catalogue system for game collections. It allows a user to manage records of games and the characters that are in them. 
