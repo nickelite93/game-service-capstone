@@ -5,11 +5,12 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'fsnd-nicks.eu.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'games-library'
+AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
+ALGORITHMS = os.environ.get['ALGORITHMS']
+API_AUDIENCE = os.environ.get('API_AUDIENCE')
 
-## AuthError Exception
+# AuthError Exception
+
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
@@ -17,7 +18,7 @@ class AuthError(Exception):
         self.status_code = status_code
 
 
-## Auth Header
+# Auth Header
 
 def get_token_auth_header():
     auth = request.headers.get('Authorization')
@@ -33,7 +34,7 @@ def get_token_auth_header():
             'code': 'invalid header',
             'description': 'Authorization header should start with "Bearer.'
         }, 401)
-    elif len(parts) == 1: 
+    elif len(parts) == 1:
         raise AuthError({
             'code': 'invalid header',
             'description': 'Token not found'
@@ -50,6 +51,7 @@ def get_token_auth_header():
 
 #    raise Exception('Not Implemented')
 
+
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
         raise AuthError({
@@ -64,6 +66,7 @@ def check_permissions(permission, payload):
     return True
     # raise Exception('Not Implemented')
 
+
 def verify_decode_jwt(token):
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
@@ -73,11 +76,11 @@ def verify_decode_jwt(token):
     rsa_key = {}
     if 'kid' not in unverified_header:
         raise AuthError({
-    '       code': 'invalid_header',
+            '       code': 'invalid_header',
             'description': 'Authorization malformed.'
         }, 401)
 
-    for key in jwks['keys']: 
+    for key in jwks['keys']:
         if key['kid'] == unverified_header['kid']:
             rsa_key = {
                 'kty': key['kty'],
@@ -113,9 +116,9 @@ def verify_decode_jwt(token):
                 'description': 'Unable to parse authentication token.'
             }, 400)
     raise AuthError({
-                'code': 'invalid_header',
+        'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'
-            }, 400)
+    }, 400)
 
 
 def requires_auth(permission=''):

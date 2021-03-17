@@ -1,13 +1,58 @@
 **Heroku URL**
 https://game-service-capstone.herokuapp.com/
 
+This API provides a catalogue system for game collections. It allows a user to manage records of games and the characters that are in them.
+
 **Motivation for project**
 
-This API provides a catalogue system for game collections. It allows a user to manage records of games and the characters that are in them. 
+I developed this project to practice using skills I have learned throughout the nanodegree in regards to full stack web development. I also wanted a way for me to catalogue my game collections and my favourite characters within them.
+
+The skills I wanted to practice while working on this project were:
+
+1. SQL and database modelling (SQLAlchemy)
+2. API Development and documentation (flask, python)
+3. Identity and access management (Auth0, JWT)
+4. Server deployment (containers)
 
 **Project Dependencies**
 
-The list of project dependencies is included in the requirements.txt file. 
+To run this programme locally:
+
+1. Install python: https://www.python.org/downloads/
+Follow instructions to install the correct version of Python for your platform
+in the python docs.
+
+
+2. Install postgres: https://www.postgresql.org/download/
+3. Install the dependencies, recommended using a virtual environment: requirements.txt
+
+python -m venv venv
+venv/bin/activate
+pip install -r requirements.txt
+
+4. Initialize and configure your local database in the models.py file in the format:
+database_path = "postgres://{}:{}@{}/{}".format(<user-name>,'<password>','localhost:5432', <database_name>)
+Once you create the database, open your terminal, navigate to the root folder, and run:
+
+flask db init
+flask db migrate -m "Initial migration."
+flask db upgrade
+
+5. Set up your Auth0 account with the permissions detailed in the 'Roles & Permissions' section below.
+6. Run the application using Flask
+
+From within the root directory, first ensure you're working with your created
+venv. To run the server, execute the following:
+
+export FLASK_APP=agency
+export FLASK_DEBUG=true
+export FLASK_ENV=development
+flask run
+Setting the FLASK_ENV variable to development will detect file changes and
+restart the server automatically.
+Setting the FLASK_APP variable to agency directs Flask to use
+the agency directory and the __init__.py file to find and load the
+application.
 
 **PostgresSQL**
 

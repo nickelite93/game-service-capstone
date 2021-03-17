@@ -17,10 +17,9 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     # app.config.from_object('config')
-    db.app=app
+    db.app = app
     db.init_app(app)
     migrate = Migrate(app, db)
-
 
 
 class Game(db.Model):
@@ -30,7 +29,6 @@ class Game(db.Model):
     title = db.Column(db.String)
     rating = db.Column(db.Integer)
     completed = db.Column(db.Boolean, nullable=False, default=False)
-
 
     def full(self):
         return {
@@ -85,11 +83,8 @@ class Character(db.Model):
         }
 
     def insert(self):
-        print("4")
         db.session.add(self)
-        print("5")
         db.session.commit()
-        print("6")
 
     def update(self):
         db.session.commit()
@@ -97,12 +92,4 @@ class Character(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
-
-
-
-
-
-
-
 
