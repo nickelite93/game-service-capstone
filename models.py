@@ -37,7 +37,7 @@ class Game(db.Model):
             "completed": self.completed,
             "rating": self.rating
         }
-    
+
     def short(self):
         return {
             "id": self.id,
@@ -92,4 +92,3 @@ class Character(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-

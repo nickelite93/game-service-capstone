@@ -58,13 +58,13 @@ def create_app(test_config=None):
 
             game = Game(title=title, rating=rating, completed=completed)
             game.insert()
+        except bad_request:
+            abort(400)
     return jsonify({
       'success': True,
       'game_id': game.id,
       'game_title': game.title
     })
-    except:
-        abort(400)
 
     @app.route("/games/<int:game_id>", methods=['DELETE'])
     @requires_auth("delete:games")
@@ -97,13 +97,14 @@ def create_app(test_config=None):
                                   intelligence=intelligence, good=good,
                                   game_id=new_game_id)
             character.insert()
+
+        except bad_request:
+            abort(400)
     return jsonify({
       'success': True,
       'character_id': character.id,
       'character_name': character.name
     })
-    except:
-        abort(400)
 
     @app.route("/characters/<int:character_id>", methods=['DELETE'])
     @requires_auth('delete:characters')

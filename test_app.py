@@ -52,7 +52,9 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
 
         def test_get_games(self):
             res = self.client().get('/games',
-                                    headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
+                                    headers={'Content-Type':
+                                             'application/json',
+                                             'Authorization': 'Bearer '
                                              + admin_token})
             data = json.loads(res.data)
 
@@ -62,7 +64,9 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
 
         def test_get_characters(self):
             res = self.client().get('/characters',
-                                    headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
+                                    headers={'Content-Type':
+                                             'application/json',
+                                             'Authorization': 'Bearer '
                                              + admin_token})
             data = json.loads(res.data)
 
@@ -72,7 +76,9 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
 
         def test_post_game(self):
             res = self.client().post('/games/create', json=self.new_game,
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer '
                                               + admin_token})
             data = json.loads(res.data)
 
@@ -85,9 +91,12 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
                 Game.title == 'This is a test game').first()
             id = game.id
 
-            res = self.client().patch('/games/' + str(id), json=self.game_patch,
-                                      headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
-                                      + admin_token})
+            res = self.client().patch('/games/' + str(id),
+                                      json=self.game_patch,
+                                      headers={'Content-Type':
+                                               'application/json',
+                                               'Authorization': 'Bearer '
+                                               + admin_token})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 200)
@@ -95,8 +104,11 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             self.assertEqual(data['title'], game.title)
 
         def test_post_character(self):
-            res = self.client().post("/characters/create", json=self.new_character,
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
+            res = self.client().post("/characters/create",
+                                     json=self.new_character,
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer '
                                               + admin_token})
             data = json.loads(res.data)
 
@@ -109,7 +121,9 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
                 Game.title == 'This is a test game').first()
             id = game.id
             res = self.client().delete('/games/' + str(id),
-                                       headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
+                                       headers={'Content-Type':
+                                                'application/json',
+                                                'Authorization': 'Bearer '
                                                 + admin_token})
             data = json.loads(res.data)
 
@@ -122,7 +136,9 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
                 Character.name == 'This is a test character').first()
             id = character.id
             res = self.client().delete('/characters/' + str(id),
-                                       headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
+                                       headers={'Content-Type':
+                                                'application/json',
+                                                'Authorization': 'Bearer '
                                                 + admin_token})
             data = json.loads(res.data)
 
@@ -134,7 +150,9 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             bad_game = {"title": "bad title",
                         "rating": "NaN", "completed": False}
             res = self.client().post('/games/create', json=bad_game,
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer '
                                               + admin_token})
             data = json.loads(res.data)
 
@@ -146,14 +164,19 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             bad_game = {"title": "bad title",
                         "rating": "NaN", "completed": False}
             res = self.client().post('/games/create', json=bad_game,
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '})
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer '})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 401)
 
         def test_delete_non_existent_game(self):
             res = self.client().delete('/games/10000000000',
-                                       headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + admin_token})
+                                       headers={'Content-Type':
+                                                'application/json',
+                                                'Authorization': 'Bearer '
+                                                + admin_token})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 404)
@@ -163,7 +186,10 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             bad_character = {"name": "bad name", "fighting": "NaN",
                              "intelligence": 7, "good": False, "game_id": 2}
             res = self.client().post('/characters/create', json=bad_character,
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + admin_token})
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer '
+                                              + admin_token})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 400)
@@ -174,14 +200,19 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             bad_character = {"name": "bad name", "fighting": 7,
                              "intelligence": 7, "good": False, "game_id": 2}
             res = self.client().post('/characters/create', json=bad_character,
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer '})
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer '})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 401)
 
         def test_delete_non_existent_character(self):
             res = self.client().delete('/characters/10000000000',
-                                       headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + admin_token})
+                                       headers={'Content-Type':
+                                                'application/json',
+                                                'Authorization': 'Bearer '
+                                                + admin_token})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 404)
@@ -189,7 +220,10 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
 
         def test_patch_nonexistent_game(self):
             res = self.client().patch('/games/10000000', json=self.game_patch,
-                                      headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + admin_token})
+                                      headers={'Content-Type':
+                                               'application/json',
+                                               'Authorization': 'Bearer '
+                                               + admin_token})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 404)
@@ -199,7 +233,10 @@ class GameCharacterCatalogueTestCase(unittest.TestCase):
             bad_character = {"name": "bad name", "fighting": 7,
                              "intelligence": 7, "good": False, "game_id": 2}
             res = self.client().post('/characters/create', json=bad_character,
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + user_token})
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer '
+                                              + user_token})
             data = json.loads(res.data)
 
             self.assertEqual(res.status_code, 401)
